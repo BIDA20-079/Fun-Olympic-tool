@@ -336,27 +336,28 @@ visualization_type = st.sidebar.selectbox("4.Select Visualization Type", visuali
 filtered_df['hour_of_day'] = filtered_df['Time_visits'].dt.hour
 visits_by_hour = filtered_df.groupby('hour_of_day').size().reset_index(name='Visits')
 
-    if visualization_type == "Line Chart":
-        fig_hour = px.line(visits_by_hour, x='hour_of_day', y='Visits', title='Website Visits by Time of Day',
-                           labels={'hour_of_day': 'Hour of Day', 'Visits': 'Number of Visits'})
-    elif visualization_type == "Bar Chart":
-        fig_hour = px.bar(visits_by_hour, x='hour_of_day', y='Visits', title='Website Visits by Time of Day',
-                          labels={'hour_of_day': 'Hour of Day', 'Visits': 'Number of Visits'})
-    elif visualization_type == "Area Chart":
-        fig_hour = px.area(visits_by_hour, x='hour_of_day', y='Visits', title='Website Visits by Time of Day',
-                           labels={'hour_of_day': 'Hour of Day', 'Visits': 'Number of Visits'})
-    else:
-        st.error("Invalid visualization type selected!")
+  if visualization_type == "Line Chart":
+    fig_hour = px.line(visits_by_hour, x='hour_of_day', y='Visits', title='Website Visits by Time of Day',
+                       labels={'hour_of_day': 'Hour of Day', 'Visits': 'Number of Visits'})
+elif visualization_type == "Bar Chart":
+    fig_hour = px.bar(visits_by_hour, x='hour_of_day', y='Visits', title='Website Visits by Time of Day',
+                      labels={'hour_of_day': 'Hour of Day', 'Visits': 'Number of Visits'})
+elif visualization_type == "Area Chart":
+    fig_hour = px.area(visits_by_hour, x='hour_of_day', y='Visits', title='Website Visits by Time of Day',
+                       labels={'hour_of_day': 'Hour of Day', 'Visits': 'Number of Visits'})
+else:
+    st.error("Invalid visualization type selected!")
 
-    col2.subheader("4.Website Visits by Time of Day")
-    col2.plotly_chart(fig_hour, use_container_width=True)
+col2.subheader("4.Website Visits by Time of Day")
+col2.plotly_chart(fig_hour, use_container_width=True)
 
-    # Display the expandable section for View Data of TimeSeries
-    with col2.expander("View Data of TimeSeries"):
-        st.write("Distribution of website visits by hour of the day.")
-        st.dataframe(visits_by_hour.style.background_gradient(cmap="Blues"))
-        csv = visits_by_hour.to_csv(index=False).encode("utf-8")
-        st.download_button('Download Data', data=csv, file_name="VisitsByHour.csv", mime='text/csv')
+# Display the expandable section for View Data of TimeSeries
+with col2.expander("View Data of TimeSeries"):
+    st.write("Distribution of website visits by hour of the day.")
+    st.dataframe(visits_by_hour.style.background_gradient(cmap="Blues"))
+    csv = visits_by_hour.to_csv(index=False).encode("utf-8")
+    st.download_button('Download Data', data=csv, file_name="VisitsByHour.csv", mime='text/csv')
+
 
 # Sidebar filters
 visualization_types = ["Line Chart", "Bar Chart", "Area Chart"]
