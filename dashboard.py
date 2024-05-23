@@ -216,9 +216,6 @@ for col in numerical_cols:
     fig = px.box(dataframe, y=col, title=f'Box Plot for {col}', color_discrete_sequence=['lightcoral'])
     st.plotly_chart(fig)
 
-_sequence=['lightcoral'])
-        st.plotly_chart(fig)
-
     # Data types of columns
     st.write("### <span style='color:blue'>Data Types:</span>", unsafe_allow_html=True)
     data_types_df = pd.DataFrame(dataframe.dtypes, columns=['Data Type']).T
