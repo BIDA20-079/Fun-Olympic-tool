@@ -18,10 +18,8 @@ import seaborn as sns
 # Set page configuration
 st.set_page_config(page_title="Olympics", page_icon=":bar_chart:", layout="wide")
 
-
-
 # Load and display the logo with a specified width
-logo_path ="background.jpeg"
+logo_path = "background.jpeg"
 
 # Display the logo in the first column
 col1, col2 = st.columns([1, 4])  # Adjust the width ratio as needed
@@ -265,7 +263,7 @@ def show_summary_tables(dataframe):
 
 # Load or define the DataFrame
 # Example:
-df = pd.read_csv("olympics.csv.csv")
+df = pd.read_csv(r"C:\Users\user\Desktop\dashboard\olympics.csv.csv")
 
 # Call the function to display summary tables
 with st.expander("Summary Statistics"):
@@ -347,12 +345,9 @@ df = pd.read_csv("olympics.csv.csv")
 with st.expander("Website Visit Insights by Country"):
     show_website_visit_insights_by_country(df)
 
-
-
-
 # Add logo
 st.sidebar.title("TOKYO FUN OLYMPICS")
-st.sidebar.image("logo2.jpg", use_column_width=True)
+st.sidebar.image(r"logo2.jpg", use_column_width=True)
 
 # Sidebar filters
 st.sidebar.header("Choose your filter: ")
@@ -557,9 +552,6 @@ visualization_type = st.sidebar.selectbox("4.Select Visualization Type", visuali
 # Call the function to display distribution of website visits by hour of the day
 show_website_visits_by_hour(filtered_df, visualization_type)
 
-
-   
-
 # Group the data by referrer and country
 referrer_country_data = df.groupby(['referrer', 'country']).size().reset_index(name='Visits')
 
@@ -574,3 +566,4 @@ st.plotly_chart(fig, use_container_width=True)
 csv = referrer_country_data.to_csv(index=False).encode('utf-8')
 st.download_button('Download Data', data=csv, file_name='referrer_country_data.csv', mime='text/csv',
                    help='Click here to download the data represented in the treemap')
+
