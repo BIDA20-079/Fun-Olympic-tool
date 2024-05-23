@@ -336,7 +336,7 @@ visualization_type = st.sidebar.selectbox("4.Select Visualization Type", visuali
 filtered_df['hour_of_day'] = filtered_df['Time_visits'].dt.hour
 visits_by_hour = filtered_df.groupby('hour_of_day').size().reset_index(name='Visits')
 
-  if visualization_type == "Line Chart":
+if visualization_type == "Line Chart":
     fig_hour = px.line(visits_by_hour, x='hour_of_day', y='Visits', title='Website Visits by Time of Day',
                        labels={'hour_of_day': 'Hour of Day', 'Visits': 'Number of Visits'})
 elif visualization_type == "Bar Chart":
@@ -357,6 +357,7 @@ with col2.expander("View Data of TimeSeries"):
     st.dataframe(visits_by_hour.style.background_gradient(cmap="Blues"))
     csv = visits_by_hour.to_csv(index=False).encode("utf-8")
     st.download_button('Download Data', data=csv, file_name="VisitsByHour.csv", mime='text/csv')
+  
 
 
 # Sidebar filters
