@@ -284,6 +284,10 @@ def generate_report(dataframe, start_date, end_date, selected_country, selected_
     # Display summary statistics
     st.subheader("Summary Statistics:")
     st.write(summary_statistics)
+# Call the function to display summary tables
+with st.expander("Summary Statistics"):
+    show_summary_tables(df)
+
 # Function to display website visit insights by country with optional filtering
 def show_website_visit_insights_by_country(dataframe):
     st.title("Website Visit Insights by Country")
