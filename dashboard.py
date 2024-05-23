@@ -210,6 +210,8 @@ def show_summary_tables(dataframe):
     st.write("### <span style='color:blue'>Basic Statistics:</span>", unsafe_allow_html=True)
     st.write(dataframe.describe().T)
 
+# Load the DataFrame from a CSV file
+df = pd.read_csv('olympics.csv.csv')
  # Create a box plot for each numerical column
 numerical_cols = df.select_dtypes(include=['number']).columns
 for col in numerical_cols:
