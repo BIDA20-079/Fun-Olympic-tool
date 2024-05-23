@@ -256,6 +256,13 @@ def show_summary_tables(dataframe):
             'Latest Date': [dataframe[col].max()],
             'Range of Dates': [dataframe[col].max() - dataframe[col].min()]
         }).T)
+# Load or define the DataFrame
+# Example:
+df = pd.read_csv("olympics.csv.csv")
+
+# Call the function to display summary tables
+with st.expander("Summary Statistics"):
+    show_summary_tables(df)   
 
 # Function to generate reports based on user-selected criteria
 def generate_report(dataframe, start_date, end_date, selected_country, selected_sports_categories):
@@ -276,17 +283,6 @@ def generate_report(dataframe, start_date, end_date, selected_country, selected_
     country_distribution = filtered_data['Country'].value_counts()
     fig_pie = px.pie(country_distribution, values=country_distribution.values, names=country_distribution.index, title='Country Distribution')
 
-    # Export the report to PDF or other formats
-    # Load or define the DataFrame
-     # Example:
-    df = pd.read_csv("olympics.csv.csv")
-
-    # Display summary statistics
-    st.subheader("Summary Statistics:")
-    st.write(summary_statistics)
-# Call the function to display summary tables
-with st.expander("Summary Statistics"):
-    show_summary_tables(df)
 
 # Function to display website visit insights by country with optional filtering
 def show_website_visit_insights_by_country(dataframe):
