@@ -21,7 +21,7 @@ st.set_page_config(page_title="Olympics", page_icon=":bar_chart:", layout="wide"
 
 
 # Load and display the logo with a specified width
-logo_path = r"C:\Users\user\Desktop\tool\background.jpeg"
+logo_path ="background.jpeg"
 
 # Display the logo in the first column
 col1, col2 = st.columns([1, 4])  # Adjust the width ratio as needed
@@ -265,7 +265,7 @@ def show_summary_tables(dataframe):
 
 # Load or define the DataFrame
 # Example:
-df = pd.read_csv(r"C:\Users\user\Desktop\dashboard\olympics.csv.csv")
+df = pd.read_csv("olympics.csv.csv")
 
 # Call the function to display summary tables
 with st.expander("Summary Statistics"):
@@ -341,7 +341,7 @@ def show_website_visit_insights_by_country(dataframe):
 
 # Load or define the DataFrame
 # Example:
-df = pd.read_csv(r"C:\Users\user\Desktop\dashboard\olympics.csv.csv")
+df = pd.read_csv("olympics.csv.csv")
 
 # Call the function to display website visit insights by country with optional filtering
 with st.expander("Website Visit Insights by Country"):
@@ -352,7 +352,7 @@ with st.expander("Website Visit Insights by Country"):
 
 # Add logo
 st.sidebar.title("TOKYO FUN OLYMPICS")
-st.sidebar.image(r"C:\Users\user\Desktop\tool\logo2.jpg", use_column_width=True)
+st.sidebar.image("logo2.jpg", use_column_width=True)
 
 # Sidebar filters
 st.sidebar.header("Choose your filter: ")
