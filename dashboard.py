@@ -211,10 +211,10 @@ def show_summary_tables(dataframe):
     st.write(dataframe.describe().T)
 
  # Create a box plot for each numerical column
-    numerical_cols = dataframe.select_dtypes(include=['number']).columns
-    for col in numerical_cols:
-        fig = px.box(dataframe, y=col, title=f'Box Plot for {col}', color_discrete_sequence=['lightcoral'])
-        st.plotly_chart(fig)
+numerical_cols = dataframe.select_dtypes(include=['number']).columns
+for col in numerical_cols:
+    fig = px.box(dataframe, y=col, title=f'Box Plot for {col}', color_discrete_sequence=['lightcoral'])
+    st.plotly_chart(fig)
 
 _sequence=['lightcoral'])
         st.plotly_chart(fig)
