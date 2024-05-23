@@ -219,9 +219,9 @@ def show_summary_tables(dataframe):
         st.plotly_chart(fig)
 
 
-# Load DataFrame from a URL
-url = "https://my.api.mockaroo.com/olympics?key=5adf4f80"
-df = pd.read_csv(url)
+# Load or define the DataFrame
+# Example:
+df = pd.read_csv("olympics.csv.csv")
 
 # Call the function to display summary tables
 with st.expander("Summary Statistics"):
