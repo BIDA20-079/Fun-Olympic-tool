@@ -213,9 +213,9 @@ def show_summary_tables(dataframe):
     # Create a box plot for each numerical column
     numerical_cols = dataframe.select_dtypes(include=['number']).columns
     for col in numerical_cols:
-        fig = px.box(dataframe, y=col, title=f'Box Plot for {
+        fig = px.box(dataframe, y=col, title=f'Box Plot for {col}', color_discrete
 
-col}', color_discrete_sequence=['lightcoral'])
+_sequence=['lightcoral'])
         st.plotly_chart(fig)
 
     # Data types of columns
@@ -332,8 +332,7 @@ def show_website_visits_by_hour(dataframe, visualization_type):
 visualization_types = ["Line Chart", "Bar Chart", "Area Chart"]
 visualization_type = st.sidebar.selectbox("4.Select Visualization Type", visualization_types)
 
-# Function to display distribution of website visits by hour of the day
-def show_website_visits_by_hour(dataframe, visualization_type):
+# Call the function to display distribution of website visits by hour of the day
     # Extract the hour of the day from the timestamp
     filtered_df['hour_of_day'] = filtered_df['Time_visits'].dt.hour
     visits_by_hour = filtered_df.groupby('hour_of_day').size().reset_index(name='Visits')
