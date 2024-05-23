@@ -263,7 +263,7 @@ def show_summary_tables(dataframe):
 
 # Load or define the DataFrame
 # Example:
-df = pd.read_csv(r"C:\Users\user\Desktop\dashboard\olympics.csv.csv")
+df = pd.read_csv("olympics.csv.csv")
 
 # Call the function to display summary tables
 with st.expander("Summary Statistics"):
