@@ -277,8 +277,9 @@ def generate_report(dataframe, start_date, end_date, selected_country, selected_
     fig_pie = px.pie(country_distribution, values=country_distribution.values, names=country_distribution.index, title='Country Distribution')
 
     # Export the report to PDF or other formats
-    # Example: Export summary statistics and charts to a PDF file
-    # You can use libraries like ReportLab or pdfkit for PDF generation
+    # Load or define the DataFrame
+     # Example:
+    df = pd.read_csv("olympics.csv.csv")
 
     # Display summary statistics
     st.subheader("Summary Statistics:")
