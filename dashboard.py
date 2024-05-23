@@ -332,8 +332,9 @@ visualization_type = st.sidebar.selectbox("4.Select Visualization Type", visuali
 
 # Call the function to display distribution of website visits by hour of the day
     # Extract the hour of the day from the timestamp
-    filtered_df['hour_of_day'] = filtered_df['Time_visits'].dt.hour
-    visits_by_hour = filtered_df.groupby('hour_of_day').size().reset_index(name='Visits')
+# Extract the hour of the day from the timestamp
+filtered_df['hour_of_day'] = filtered_df['Time_visits'].dt.hour
+visits_by_hour = filtered_df.groupby('hour_of_day').size().reset_index(name='Visits')
 
     if visualization_type == "Line Chart":
         fig_hour = px.line(visits_by_hour, x='hour_of_day', y='Visits', title='Website Visits by Time of Day',
