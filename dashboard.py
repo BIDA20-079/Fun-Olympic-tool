@@ -217,45 +217,7 @@ def show_summary_tables(dataframe):
     for col in numerical_cols:
         fig = px.box(dataframe, y=col, title=f'Box Plot for {col}', color_discrete_sequence=['lightcoral'])
         st.plotly_chart(fig)
-  # Data types of columns
-    st.write("### Data Types:")
-    data_types_df = pd.DataFrame(dataframe.dtypes, columns=['Data Type']).T
-    st.write(data_types_df)
-
-    # Create a pie chart for data types
-    data_type_counts = dataframe.dtypes.value_counts().reset_index()
-    data_type_counts.columns = ['Data Type', 'Count']
-    data_type_counts['Data Type'] = data_type_counts['Data Type'].astype(str)  # Convert data types to string
-    fig_pie = px.pie(data_type_counts, values='Count', names='Data Type', title='Distribution of Data Types')
-    st.plotly_chart(fig_pie)
-
-    # Missing values
-    st.write("### Missing Values:")
-    missing_values = dataframe.isnull().sum()
-    if missing_values.sum() == 0:
-        st.write("No missing values in the dataset.")
-    else:
-        st.write(missing_values.to_frame().T)
-
-        # Create a bar chart for missing values
-        fig_bar = px.bar(missing_values[missing_values > 0], title='Missing Values per Column')
-        st.plotly_chart(fig_bar)
-
-    # Categorical variables
-    categorical_cols = dataframe.select_dtypes(include=['object']).columns
-    for col in categorical_cols:
-        st.write(f"### Unique values for {col}:")
-        st.write(dataframe[col].value_counts().to_frame().T)
-
-    # Date-time analysis
-    date_cols = dataframe.select_dtypes(include=['datetime64']).columns
-    for col in date_cols:
-        st.write(f"### Date-time analysis for {col}:")
-        st.write(pd.DataFrame({
-            'Earliest Date': [dataframe[col].min()],
-            'Latest Date': [dataframe[col].max()],
-            'Range of Dates': [dataframe[col].max() - dataframe[col].min()]
-        }).T)
+  
 # Load or define the DataFrame
 # Example:
 df = pd.read_csv("olympics.csv.csv")
