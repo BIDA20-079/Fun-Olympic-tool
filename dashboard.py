@@ -14,6 +14,7 @@ import requests
 import plotly.express as px
 import matplotlib.pyplot as plt
 import seaborn as sns
+import pytz  # Import pytz library for timezone support
 
 # Set page configuration
 st.set_page_config(page_title="Olympics", page_icon=":bar_chart:", layout="wide")
@@ -40,13 +41,6 @@ def show_summary_tables(dataframe):
     st.title("Summary Tables")
     st.write("### Basic Statistics:")
     st.write(dataframe.describe())
-    st.write("### Data Types:")
-    st.write(dataframe.dtypes)
-    st.write("### Missing Values:")
-    st.write(dataframe.isnull().sum())
-
-def show_data_types_and_null_values(dataframe):
-    st.title("Data Types and Null Values")
     st.write("### Data Types:")
     st.write(dataframe.dtypes)
     st.write("### Missing Values:")
@@ -84,7 +78,7 @@ if fl is not None:
     analysis_option = st.selectbox(
         "Select an analysis option",
         ["Select an option", "View Data", "Descriptive Statistics", "Summary of Website Visits",
-         "Data Types and Null Values","Distribution Plots", "Top N Values"]
+         "Distribution Plots", "Top N Values"]
     )
 
     if analysis_option == "View Data":
@@ -97,25 +91,26 @@ if fl is not None:
     elif analysis_option == "Summary of Website Visits":
         show_website_visits_summary(df)
 
-    elif analysis_option == "Data Types and Null Values":
-        show_data_types_and_null_values(df)
-
     elif analysis_option == "Distribution Plots":
         show_distribution_plots(df)
 
     elif analysis_option == "Top N Values":
         show_top_n_values(df)
 
-  # Function to fetch real web server logs from an API
+# Function to fetch real web server logs from an API
 def fetch_real_web_server_logs(num_logs):
     api_endpoint = "https://my.api.mockaroo.com/olympics?key=5adf4f80"
     response = requests.get(api_endpoint)
     if response.status_code == 200:
         logs_json = response.json()
         logs = []
+        # Set the timezone to Central Africa Time (CAT)
+        tz = pytz.timezone('Africa/Gaborone')  # or simply 'CAT'
         for log_entry in logs_json[:num_logs]:
+            # Generate the timestamp in the specified timezone
+            timestamp = datetime.datetime.now(tz).strftime("%Y-%m-%d %H:%M:%S")
             logs.append([
-                datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                timestamp,
                 log_entry.get("IP Address", ""),
                 log_entry.get("Country", ""),
                 log_entry.get("Referrer", ""),
@@ -217,6 +212,34 @@ def show_summary_tables(dataframe):
     for col in numerical_cols:
         fig = px.box(dataframe, y=col, title=f'Box Plot for {col}', color_discrete_sequence=['lightcoral'])
         st.plotly_chart(fig)
+     # Missing values
+    st.write("### <span style='color:blue'>Missing Values:</span>", unsafe_allow_html=True)
+    missing_values = dataframe.isnull().sum()
+    st.write(missing_values.to_frame().T)
+
+    # Create a bar chart for missing values
+    if missing_values.sum() == 0:
+        st.write("No missing values in the dataset.")
+    else:
+        fig_bar = px.bar(missing_values[missing_values > 0], title='Missing Values per Column')
+        st.plotly_chart(fig_bar)
+
+
+    # Categorical variables
+    categorical_cols = dataframe.select_dtypes(include=['object']).columns
+    for col in categorical_cols:
+        st.write(f"### <span style='color:blue'>Unique values for {col}:</span>", unsafe_allow_html=True)
+        st.write(dataframe[col].value_counts().to_frame().T)
+
+    # Date-time analysis
+    date_cols = dataframe.select_dtypes(include=['datetime64']).columns
+    for col in date_cols:
+        st.write(f"### <span style='color:blue'>Date-time analysis for {col}:</span>", unsafe_allow_html=True)
+        st.write(pd.DataFrame({
+            'Earliest Date': [dataframe[col].min()],
+            'Latest Date': [dataframe[col].max()],
+            'Range of Dates': [dataframe[col].max() - dataframe[col].min()]
+        }).T)    
   
 # Load or define the DataFrame
 # Example:
@@ -517,4 +540,3 @@ st.plotly_chart(fig, use_container_width=True)
 csv = referrer_country_data.to_csv(index=False).encode('utf-8')
 st.download_button('Download Data', data=csv, file_name='referrer_country_data.csv', mime='text/csv',
                    help='Click here to download the data represented in the treemap')
-
