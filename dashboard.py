@@ -77,7 +77,7 @@ if fl is not None:
     # Dropdown menu for analysis options
     analysis_option = st.selectbox(
         "Select an analysis option",
-        ["Select an option", "View Data", "Descriptive Statistics", "Summary of Website Visits",
+        ["Select an option", "View Data", "Descriptive Statistics",
          "Distribution Plots", "Top N Values"]
     )
 
